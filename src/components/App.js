@@ -35,6 +35,11 @@ function App() {
     history.push('/');
   };
 
+  function handleInfoTool(data) {
+    setAnswer(data);
+    setInfoTooltipPopupOpen(true);
+  };
+
   function logIn(data) {
     api.signIn(data).then(()=>{
       openMainComponent();
@@ -49,7 +54,7 @@ function App() {
     api.signUp(data.password, data.email).then((data)=>{
       if(data){
         handleInfoTool('success');
-       history.push('/signin');
+        history.push('/signin');
       }
     })
     .catch(()=>handleInfoTool('error'))
@@ -74,11 +79,6 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-  };
-
-  function handleInfoTool(data) {
-    setAnswer(data);
-    setInfoTooltipPopupOpen(true);
   };
 
   function handleCardClick(card) {
