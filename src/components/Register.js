@@ -1,12 +1,9 @@
-import {api} from '../utils/Api';
-import React from "react";
-import { Link, withRouter, useHistory } from "react-router-dom";
+import { React, useState } from 'react';
+import { Link, withRouter } from "react-router-dom";
 
 function Register(props) {
-  //console.log(props)
-  const history = useHistory(); 
-  const [emailValue, setEmailValue] = React.useState('');
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   function emailInputValue(e) {
     setEmailValue(e.target.value);
   };
@@ -15,18 +12,12 @@ function Register(props) {
     setPasswordValue(e.target.value);
   };
 
-  function onRegister() {
+  function signUp() {
     const { password,email } = {
       password: passwordValue,
       email: emailValue
     };
-    api.signUp(password,email).then((data)=>{
-      if(data){
-        props.answer('success');
-        history.push('/signin');
-      }
-    })
-    .catch(()=>props.answer('error'))
+    props.onRegister({ password,email })
   }
 
   return(
@@ -41,7 +32,7 @@ function Register(props) {
         </fieldset>
       </form>
       <div className="login__buttons">
-        <button className="login__button" onClick={onRegister}>Зарегистрироваться</button>
+        <button className="login__button" onClick={signUp}>Зарегистрироваться</button>
         <Link to="./signin" className="login__sing-in">Уже зарегистрированы? Войти</Link>
       </div>
     </div>

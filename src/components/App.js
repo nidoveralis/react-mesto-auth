@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Main from './Main';
 import Header from './Header';
@@ -17,29 +17,48 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   const history = useHistory();
-  const userContext = React.useContext(CurrentUserContext);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  const [infoTooltipPopupOpen, setInfoTooltipPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser,setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userData, setUserData] = React.useState('');
-  const [answer, setAnswer] = React.useState('');
+  const userContext = useContext(CurrentUserContext);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [infoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser,setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState('');
+  const [answer, setAnswer] = useState('');
 
   function openMainComponent() {
     changeLoggedIn();
     history.push('/');
   };
 
+  function handleInfoTool(data) {
+    setAnswer(data);
+    setInfoTooltipPopupOpen(true);
+  };
+
   function logIn(data) {
     api.signIn(data).then(()=>{
       openMainComponent();
+    })
+    .catch(()=>{
+    setAnswer('error');
+    setInfoTooltipPopupOpen(true);
     });
   };
+
+  function handleRegister(data) {
+    api.signUp(data.password, data.email).then((data)=>{
+      if(data){
+        handleInfoTool('success');
+        history.push('/signin');
+      }
+    })
+    .catch(()=>handleInfoTool('error'))
+  }
   
   function removeUserToken() {
     localStorage.removeItem('jwt');
@@ -62,11 +81,6 @@ function App() {
     setIsAddPlacePopupOpen(true);
   };
 
-  function handleInfoTool(data) {
-    setAnswer(data);
-    setInfoTooltipPopupOpen(true);
-  };
-
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
@@ -82,24 +96,25 @@ function App() {
     //setAnswer('')
   };
 
-  React.useEffect(()=>{
+  useEffect(()=>{
     const jwt = localStorage.getItem('jwt');
       if(jwt) {
         api.checkToken(jwt).then(data=>{
           setUserData(data.data.email);
           openMainComponent();
-        });
+        })
+        .catch(e=>console.log(e));
       }
   }, [loggedIn]);
 
-  React.useEffect(()=>{
+  useEffect(()=>{
     api.getUserInfo().then(data=>{
       setCurrentUser(data);
     })
     .catch(e=>console.log(e));
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getInitialCards().then(data=>{
       setCards(data);
     })
@@ -111,6 +126,7 @@ function App() {
       setCurrentUser(data);
       closeAllPopups();
     })
+    .catch(e=>console.log(e));
   };
 
   function handleUpdateAvatar(avatar) {
@@ -118,6 +134,7 @@ function App() {
       setCurrentUser(data);
       closeAllPopups();
     })
+    .catch(e=>console.log(e));
   };
 
   function handleCardLike(card) {
@@ -164,7 +181,7 @@ function App() {
                 <Login handleLogin={changeLoggedIn} onLogin={logIn} answer={handleInfoTool}/>
               </Route>
               <Route path="/signup" >
-                <Register answer={handleInfoTool}/>
+                <Register answer={handleInfoTool} onRegister={handleRegister}/>
               </Route>
               <Route path="*" >
                 <Redirect to="/" />

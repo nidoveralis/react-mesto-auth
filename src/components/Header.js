@@ -10,7 +10,7 @@ function Header(props) {
       <div className='header__message'>
         <Switch>
           <Route path='/signup'>
-            <Link to='/signin' className="header__button">Вход</Link>
+            <Link to='/signin' className="header__button">Войти</Link>
           </Route>
           <Route path='/signin'>
             <Link to='/signup' className="header__button">Регистрация</Link>

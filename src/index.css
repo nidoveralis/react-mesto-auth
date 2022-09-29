@@ -54,6 +54,7 @@
 @import url('./blocks/login/__form/login__form.css');
 @import url('./blocks/login/__buttons/login__buttons.css');
 @import url('./blocks/login/__button/login__button.css');
+@import url('./blocks/login/__sing-in/login__sing-in.css');
 @import url('./blocks/popup/__frame/popup__frame.css');
 @import url('./blocks/popup-info/popup-info.css');
 @import url('./blocks/popup-info/__image/popup-info__image.css');

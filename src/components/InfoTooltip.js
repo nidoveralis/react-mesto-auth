@@ -1,12 +1,11 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import errorImg from '../images/popup__error.jpg';
 import successImg from '../images/popup__ok.jpg';
 
 function InfoTooltip({ onClose, active, answer}) {
-  console.log(answer)
-  const [title, setTitle] = React.useState();
-  const [image, setImage] = React.useState();
-  React.useEffect(()=>{
+  const [title, setTitle] = useState();
+  const [image, setImage] = useState();
+  useEffect(()=>{
     if(answer==='error'){
       setTitle('Что-то пошло не так! Попробуйте ещё раз.');
       setImage(errorImg);
