@@ -69,21 +69,31 @@ function App() {
     setLoggedIn(true);
   };
 
+  function handleEscClose(e) {
+    if(e.key === 'Escape'){
+      closeAllPopups(e);
+    };
+  };
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   };
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   };
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   };
 
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   };
 
   function closeAllPopups() {
@@ -93,7 +103,7 @@ function App() {
     setIsImagePopupOpen(false);
     setInfoTooltipPopupOpen(false);
     setSelectedCard({});
-    //setAnswer('')
+    document.removeEventListener('keydown', handleEscClose);
   };
 
   function clickOnPlace(e) {
