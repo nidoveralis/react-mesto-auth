@@ -58,7 +58,7 @@ function App() {
       }
     })
     .catch(()=>handleInfoTool('error'))
-  }
+  };
   
   function removeUserToken() {
     localStorage.removeItem('jwt');
@@ -94,6 +94,12 @@ function App() {
     setInfoTooltipPopupOpen(false);
     setSelectedCard({});
     //setAnswer('')
+  };
+
+  function clickOnPlace(e) {
+    if(e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__button-close')){
+      closeAllPopups();
+    };
   };
 
   useEffect(()=>{
@@ -190,12 +196,12 @@ function App() {
                 {loggedIn ?  <Redirect to="/" /> : <Redirect to="/signin" />}
               </Route>
             </Switch>
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} /> 
-            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleUpdateAddPlace} />
-            <PopupWithForm onClose = {closeAllPopups} active = {false} name = {'deleteCard'} title = {'Вы уверены?'} children = {<input type="submit" value="Да" className="popup__button-save popup__button-save_delete" />}/>
-            <ImagePopup active = {isImagePopupOpen} onClose = {closeAllPopups} card={selectedCard} />
-            <InfoTooltip active = {infoTooltipPopupOpen} onClose = {closeAllPopups} answer={answer}/>
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={clickOnPlace} onUpdateUser={handleUpdateUser} />
+            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={clickOnPlace} onUpdateAvatar={handleUpdateAvatar} /> 
+            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={clickOnPlace} onAddPlace={handleUpdateAddPlace} />
+            <PopupWithForm onClose = {clickOnPlace} active = {false} name = {'deleteCard'} title = {'Вы уверены?'} children = {<input type="submit" value="Да" className="popup__button-save popup__button-save_delete" />}/>
+            <ImagePopup active = {isImagePopupOpen} onClose = {clickOnPlace} card={selectedCard} />
+            <InfoTooltip active = {infoTooltipPopupOpen} onClose = {clickOnPlace} answer={answer}/>
           </div>
       </div>
       
