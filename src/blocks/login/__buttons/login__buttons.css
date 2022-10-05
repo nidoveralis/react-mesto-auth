@@ -2,5 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 147px;
+}
+
+@media screen and (min-width: 426px) {
+  .login__buttons {
+    margin-top: 194px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .login__buttons {
+    margin-top: 50px;
+  }
 }

@@ -7,7 +7,7 @@ function InfoTooltip({ onClose, active, answer}) {
   const [image, setImage] = useState();
   useEffect(()=>{
     if(answer==='error'){
-      setTitle('Что-то пошло не так! Попробуйте ещё раз.');
+      setTitle('Что-то пошло не так!  Попробуйте ещё раз.');
       setImage(errorImg);
     }if(answer==='success'){
       setTitle('Вы успешно зарегистрировались!');
@@ -15,7 +15,7 @@ function InfoTooltip({ onClose, active, answer}) {
     }
   }, [answer])
   return(
-    <div className={`${ active ? "popup_opened" : ""} popup  popup-picture`}>
+    <div className={`${ active ? "popup_opened" : ""} popup  popup-info`}>
       <div className="popup__container">
         <div className='popup__frame'>
           <button className="popup__button-close button" type="button" onClick={onClose}/>

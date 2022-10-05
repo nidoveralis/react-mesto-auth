@@ -23,21 +23,21 @@
   opacity: .8;
 }
 
-@media screen and (min-width: 461px) {
+@media screen and (min-width: 551px) {
   .login__button {
     margin: 20px auto 16px;
     font-size: 18px;
     line-height: 22px;
-    padding: 14px 87px;
+    padding: 14px 152px;
   }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 550px) {
   .login__button {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 16px;
-    padding: 15px 82px;
-    margin-top: 11px;
+    padding: 15px 107px;
+    margin-top: 12px;
     margin-bottom: 0px;
   }
 }

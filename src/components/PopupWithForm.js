@@ -1,4 +1,4 @@
-function PopupWithForm({onClose, active, name, title, children, onSubmit}) {
+function PopupWithForm({onClose, active, name, title, children, onSubmit }) {
 
   return(
     <div className = {`${ active ? "popup_opened" : ""} popup  popup-${name}`} onClick={onClose}>

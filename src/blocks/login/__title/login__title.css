@@ -1,8 +1,21 @@
 .login__title {
-  font-size: 24px;
   font-weight: 900;
   text-align: center;
-  margin: 0 auto 49px;
   line-height: 29px;
   letter-spacing: .2px;
+}
+
+@media screen and (min-width: 461px) {
+  .login__title {
+    font-size: 24px;
+    margin: 0 auto 49px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .login__title {
+    font-size: 20px;
+    padding: 38px 0px 30px;
+    margin: 0 auto 35px;
+  }
 }

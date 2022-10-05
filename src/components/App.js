@@ -12,7 +12,8 @@ import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
-import {api} from '../utils/Api';
+import { api } from '../utils/Api';
+import { objectValid } from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
